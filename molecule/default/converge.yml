@@ -1,0 +1,28 @@
+---
+- name: "Converge"
+  hosts: "all"
+  tasks:
+    # replace these tasks with whatever you find suitable to test
+    - name: "Copy something to test use of synchronize module"
+      ansible.builtin.copy:
+        src: "/etc/hosts"
+        dest: "/tmp/hosts-from-controller"
+        mode: 0700
+
+    - name: "Include labocbz.install_haproxy"
+      tags:
+        - "labocbz.install_haproxy"
+      vars:
+        haproxy_path: "{{ inv_haproxy_path }}"
+        haproxy_confs_path: "{{ inv_haproxy_confs_path }}"
+        haproxy_error_path: "{{ inv_haproxy_error_path }}"
+        haproxy_ssl_path: "{{ inv_haproxy_ssl_path }}"
+        haproxy_error_files: "{{ inv_haproxy_error_files }}"
+        haproxy_listen_stats: "{{ inv_haproxy_listen_stats }}"
+        haproxy_listen_stats_port: "{{ inv_haproxy_listen_stats_port }}"
+        haproxy_listen_stats_uri: "{{ inv_haproxy_listen_stats_uri }}"
+        haproxy_stats_login: "{{ inv_haproxy_stats_login }}"
+        haproxy_stats_password: "{{ inv_haproxy_stats_password }}"
+        haproxy_listen_stats_https: "{{ inv_haproxy_listen_stats_https }}"
+      ansible.builtin.include_role:
+        name: "labocbz.install_haproxy"

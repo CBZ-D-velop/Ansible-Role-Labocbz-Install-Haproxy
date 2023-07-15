@@ -1,0 +1,54 @@
+---
+- name: "Install packages"
+  notify: "Enable and start HAProxy"
+  ansible.builtin.package:
+    update_cache: true
+    name:
+      - haproxy
+
+- name: "Configure HAProxy"
+  notify: "Restart HAProxy"
+  block:
+    - name: "Prepare folders"
+      loop:
+        - "{{ haproxy_path }}"
+        - "{{ haproxy_confs_path }}"
+        - "{{ haproxy_error_path }}"
+        - "{{ haproxy_ssl_path }}"
+      loop_control:
+        loop_var: file
+      register: output
+      changed_when: output.size <= 0
+      ansible.builtin.file:
+        path: "{{ file }}"
+        state: directory
+        recurse: yes
+        group: "root"
+        owner: "root"
+        mode: 0600
+
+    - name: "Remove old confs"
+      loop:
+        - "{{ haproxy_confs_path }}"
+        - "{{ haproxy_error_path }}"
+        - "{{ haproxy_ssl_path }}"
+      loop_control:
+        loop_var: path
+      ansible.builtin.include_tasks:
+        file: "delete_pevious_confs.yml"
+
+    - name: "Template configuration files"
+      loop:
+        - { src: "templates/haproxy.j2", dest: "/etc/default/haproxy" }
+        - { src: "templates/haproxy.cfg.j2", dest: "/etc/haproxy/haproxy.cfg"}
+      loop_control:
+        loop_var: file
+      register: output
+      changed_when: output.size < 0
+      ansible.builtin.template:
+        src: "{{ file.src }}"
+        dest: "{{ file.dest }}"
+        lstrip_blocks: yes
+        group: "root"
+        owner: "root"
+        mode: 0600

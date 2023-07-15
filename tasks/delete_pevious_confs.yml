@@ -1,0 +1,15 @@
+---
+- name: "delete_pevious_confs | Disable all other confs"
+  block:
+    - name: "delete_pevious_confs | Find all files in folder"
+      register: files
+      ansible.builtin.find:
+        paths: "{{ path }}"
+
+    - name: "delete_pevious_confs | Remove all other confs"
+      loop: "{{ files.files }}"
+      loop_control:
+        loop_var: file
+      ansible.builtin.file:
+        path: "{{ path }}/{{ file }}"
+        state: absent

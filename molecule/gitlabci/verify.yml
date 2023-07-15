@@ -1,0 +1,111 @@
+---
+# Don't forget to keep this file updated
+# molecule/<scenario>/verify.yml
+- name: "Verify"
+  hosts: "all"
+  gather_facts: false
+  tasks:
+
+    - name: "Get HAProxy service current state"
+      register: haproxy_service_status
+      failed_when: not haproxy_service_status.status.ActiveState == 'active'
+      ansible.builtin.systemd:
+        name: "haproxy"
+
+    - name: "Check HAProxy folders and conf"
+      block:
+        - name: "Check HAProxy folders"
+          loop:
+            - "{{ inv_haproxy_path }}"
+            - "{{ inv_haproxy_confs_path }}"
+            - "{{ inv_haproxy_error_path }}"
+            - "{{ inv_haproxy_ssl_path }}"
+          loop_control:
+            loop_var: folder_path
+          register: folder_check
+          failed_when: not folder_check.stat.exists
+          ansible.builtin.stat:
+            path: "{{ folder_path }}"
+
+        - name: "Check HAProxy errors files http"
+          loop: "{{ inv_haproxy_error_files }}"
+          loop_control:
+            loop_var: file_path
+          register: file_check
+          failed_when: not file_check.stat.exists
+          ansible.builtin.stat:
+            path: "{{ inv_haproxy_error_path }}/{{ file_path }}.http"
+
+    - name: "Check stats URL protection"
+      when: inv_haproxy_listen_stats
+      block:
+
+        - name: "Check HAProxy connectivity"
+          ansible.builtin.wait_for:
+            host: "{{ inventory_hostname }}"
+            port: "{{ inv_haproxy_listen_stats_port }}"
+            timeout: 120
+
+        - name: "Check an unprotected stats HTTP URL"
+          when: not (inv_haproxy_stats_login is defined and inv_haproxy_stats_password is defined) and not inv_haproxy_listen_stats_https
+          register: result
+          failed_when: result.status != 200
+          ansible.builtin.uri:
+            url: "http://{{ inventory_hostname }}:{{ inv_haproxy_listen_stats_port }}/{{ inv_haproxy_listen_stats_uri }}"
+            method: "GET"
+
+        - name: "Check an unprotected stats HTTPS URL"
+          when: not (inv_haproxy_stats_login is defined and inv_haproxy_stats_password is defined) and not inv_haproxy_listen_stats_https
+          register: result
+          failed_when: result.status != 200
+          ansible.builtin.uri:
+            url: "https://{{ inventory_hostname }}:{{ inv_haproxy_listen_stats_port }}/{{ inv_haproxy_listen_stats_uri }}"
+            method: "GET"
+
+        - name: "Check a protected stats HTTP URL"
+          when: inv_haproxy_stats_login is defined and inv_haproxy_stats_password is defined and not inv_haproxy_listen_stats_https
+          block:
+
+            - name: "Check HTTP basic auth-protected URL availability"
+              register: result
+              failed_when: result.status != 401
+              ansible.builtin.uri:
+                url: "http://{{ inventory_hostname }}:{{ inv_haproxy_listen_stats_port }}/{{ inv_haproxy_listen_stats_uri }}"
+                method: "GET"
+                force_basic_auth: true
+                user: "notMyUser"
+                password: "notMyPassword"
+
+            - name: "Check HTTP basic auth-protected URL"
+              register: result
+              failed_when: result.status != 200
+              ansible.builtin.uri:
+                url: "http://{{ inventory_hostname }}:{{ inv_haproxy_listen_stats_port }}/{{ inv_haproxy_listen_stats_uri }}"
+                method: "GET"
+                force_basic_auth: true
+                user: "{{ inv_haproxy_stats_login }}"
+                password: "{{ inv_haproxy_stats_password }}"
+
+        - name: "Check a protected stats HTTPS URL"
+          when: inv_haproxy_stats_login is defined and inv_haproxy_stats_password is defined and inv_haproxy_listen_stats_https
+          block:
+
+            - name: "Check HTTP basic auth-protected URL availability"
+              register: result
+              failed_when: result.status != 401
+              ansible.builtin.uri:
+                url: "https://{{ inventory_hostname }}:{{ inv_haproxy_listen_stats_port }}/{{ inv_haproxy_listen_stats_uri }}"
+                method: "GET"
+                force_basic_auth: true
+                user: "notMyUser"
+                password: "notMyPassword"
+
+            - name: "Check HTTP basic auth-protected URL"
+              register: result
+              failed_when: result.status != 200
+              ansible.builtin.uri:
+                url: "https://{{ inventory_hostname }}:{{ inv_haproxy_listen_stats_port }}/{{ inv_haproxy_listen_stats_uri }}"
+                method: "GET"
+                force_basic_auth: true
+                user: "{{ inv_haproxy_stats_login }}"
+                password: "{{ inv_haproxy_stats_password }}"
