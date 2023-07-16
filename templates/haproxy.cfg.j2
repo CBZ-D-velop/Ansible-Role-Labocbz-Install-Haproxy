@@ -27,7 +27,7 @@ global
 defaults
     log {{ haproxy_log }}
     #
-    {% if haproxy_options is defined %}
+    {% if haproxy_options | default(false) %}
     {% for option in haproxy_options %}
     option {{ option }}
     {% endfor %}
@@ -37,16 +37,16 @@ defaults
     timeout client {{ haproxy_timeout_client }}
     timeout server {{ haproxy_timeout_server }}
     #
-    {% if haproxy_error_files is defined %}
+    {% if haproxy_error_files | default(false) %}
     {% for errorfile in haproxy_error_files %}
     errorfile {{ errorfile }} {{ haproxy_error_path }}/{{ errorfile }}.http
     {% endfor %}
     {% endif %}
 
-{% if haproxy_listen_stats  %}
+{% if haproxy_listen_stats | default(false) %}
 listen stats
     mode {{ haproxy_listen_stats_mode }}
-    {% if haproxy_listen_stats_https == true %}
+    {% if haproxy_listen_stats_https | default(false) %}
     bind "{{ haproxy_listen_stats_bind }}:{{ haproxy_listen_stats_port }}" ssl crt {{ haproxy_ssl_path }}/{{ haproxy_listen_stats_domain }}/{{ haproxy_listen_stats_domain }}.pem
     {% else %}
     bind "{{ haproxy_listen_stats_bind }}:{{ haproxy_listen_stats_port }}"
@@ -55,7 +55,7 @@ listen stats
     stats uri /{{ haproxy_listen_stats_uri }}
     stats refresh {{ haproxy_listen_stats_refresh }}s
     stats realm Haproxy\ Statistics
-    {% if haproxy_stats_login is defined and haproxy_stats_password is defined %}
+    {% if ((haproxy_stats_login | default(false)) and (haproxy_stats_password | default(false))) %}
     stats auth "{{ haproxy_stats_login }}":"{{ haproxy_stats_password }}"
     {% endif %}
 {% endif %}

@@ -21,6 +21,7 @@ haproxy_options:
 haproxy_timeout_connect: 5000
 haproxy_timeout_client:  50000
 haproxy_timeout_server:  50000
+haproxy_remove_old_confs: true
 
 haproxy_listen_stats: true
 haproxy_listen_stats_https: true
