@@ -16,6 +16,18 @@
 
 An Ansible role to install and configure HAProxy on your host.
 
+The Ansible role installs HAProxy, a powerful load balancer, on the target system. It provides a seamless installation process using packages, ensuring a reliable and consistent setup. While the role offers flexibility to configure custom paths for installation, it is advisable to utilize the default paths for a smoother experience.
+
+Along with installation, the role allows administrators to fine-tune the HAProxy configuration by customizing various aspects such as timeout values, log settings, and different options. The role also facilitates the setup of specific error pages for distinct HTTP status codes, enhancing the user experience during error scenarios.
+
+One notable feature of the role is its ability to handle the removal of old and outdated HAProxy configurations. When deploying HAProxy configurations that might change over time, previous configurations may become obsolete. To maintain a clean and up-to-date setup, the role effectively manages the removal of these old configurations, ensuring the system operates with the latest and most relevant settings.
+
+Additionally, the role provides an option to activate the web interface, which allows administrators to visualize load balancer configurations for better monitoring and management. For added security, the role supports SSL/TLS for this interface. Administrators can specify a domain that will be used to generate the PEM file containing the required keys and certificates, ensuring secure access to the web interface.
+
+The role's flexibility empowers administrators to tailor HAProxy according to their specific requirements, making it a versatile solution for load balancing in diverse application environments. With the role's capability to handle old configurations and provide a customizable setup, administrators can confidently deploy a robust and high-performance load balancer tailored to their needs.
+
+In summary, the HAProxy role streamlines the installation and configuration of the load balancer, while also offering features such as managing old configurations, customizable settings, error page handling, and SSL/TLS support for the web interface. By leveraging this role, administrators can deploy a reliable and efficient HAProxy setup, ensuring smooth traffic distribution and enhanced application performance.
+
 ## Folder structure
 
 By default Ansible will look in each directory within a role for a main.yml file for relevant content (also man.yml and main):
@@ -121,6 +133,7 @@ haproxy_options:
 haproxy_timeout_connect: 5000
 haproxy_timeout_client:  50000
 haproxy_timeout_server:  50000
+haproxy_remove_old_confs: true
 
 haproxy_listen_stats: true
 haproxy_listen_stats_https: true
