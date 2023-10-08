@@ -28,9 +28,9 @@ defaults
     log {{ haproxy_log }}
     #
     {% if haproxy_options | default(false) %}
-    {% for option in haproxy_options %}
+        {% for option in haproxy_options %}
     option {{ option }}
-    {% endfor %}
+        {% endfor %}
     {% endif %}
     #
     timeout connect {{ haproxy_timeout_connect }}
@@ -38,9 +38,9 @@ defaults
     timeout server {{ haproxy_timeout_server }}
     #
     {% if haproxy_error_files | default(false) %}
-    {% for errorfile in haproxy_error_files %}
+        {% for errorfile in haproxy_error_files %}
     errorfile {{ errorfile }} {{ haproxy_error_path }}/{{ errorfile }}.http
-    {% endfor %}
+        {% endfor %}
     {% endif %}
 
 {% if haproxy_listen_stats | default(false) %}
