@@ -25,7 +25,9 @@ haproxy_remove_old_confs: true
 
 haproxy_listen_stats: true
 haproxy_listen_stats_https: true
-haproxy_listen_stats_domain: "my.https.balancer.domain.tld"
+haproxy_listen_stats_cert: "{{ haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
+haproxy_listen_stats_key: "{{ haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
+haproxy_listen_stats_fullchain: "{{ haproxy_ssl_path }}/my-haproxy-server.domain.tld/fullchain.pem"
 haproxy_listen_stats_mode: "http"
 haproxy_listen_stats_bind: "*"
 haproxy_listen_stats_port: 8181

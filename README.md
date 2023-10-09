@@ -137,7 +137,9 @@ haproxy_remove_old_confs: true
 
 haproxy_listen_stats: true
 haproxy_listen_stats_https: true
-haproxy_listen_stats_domain: "my.https.balancer.domain.tld"
+haproxy_listen_stats_cert: "{{ haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
+haproxy_listen_stats_key: "{{ haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
+haproxy_listen_stats_fullchain: "{{ haproxy_ssl_path }}/my-haproxy-server.domain.tld/fullchain.pem"
 haproxy_listen_stats_mode: "http"
 haproxy_listen_stats_bind: "*"
 haproxy_listen_stats_port: 8181
@@ -173,7 +175,8 @@ inv_haproxy_error_files:
 
 inv_haproxy_listen_stats: true
 inv_haproxy_listen_stats_https: true
-inv_haproxy_listen_stats_domain: "my.https.balancer.domain.tld"
+inv_haproxy_listen_stats_cert: "{{ inv_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
+inv_haproxy_listen_stats_key: "{{ inv_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
 inv_haproxy_listen_stats_port: 8181
 inv_haproxy_listen_stats_uri: "haproxy/stats"
 inv_haproxy_stats_login: "joe"
@@ -207,6 +210,8 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
     haproxy_stats_login: "{{ inv_haproxy_stats_login }}"
     haproxy_stats_password: "{{ inv_haproxy_stats_password }}"
     haproxy_listen_stats_https: "{{ inv_haproxy_listen_stats_https }}"
+    haproxy_listen_stats_cert: "{{ inv_haproxy_listen_stats_cert }}"
+    haproxy_listen_stats_key: "{{ inv_haproxy_listen_stats_key }}"
   ansible.builtin.include_role:
     name: "labocbz.install_haproxy"
 ```
