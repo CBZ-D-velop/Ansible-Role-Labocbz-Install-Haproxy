@@ -53,3 +53,9 @@
         group: "root"
         owner: "root"
         mode: "0600"
+
+    - name: "Create fullchain file"
+      when: haproxy_listen_stats_https | default(false)
+      register: output
+      changed_when: output.rc != 0
+      ansible.builtin.shell: cat {{ haproxy_listen_stats_cert }} {{ haproxy_listen_stats_key }} > {{ haproxy_listen_stats_fullchain }}
