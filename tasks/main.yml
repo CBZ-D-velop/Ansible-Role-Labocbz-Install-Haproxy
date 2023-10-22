@@ -2,7 +2,7 @@
 - name: "Install packages"
   notify: "Enable and start HAProxy"
   ansible.builtin.package:
-    update_cache: false
+    update_cache: true
     name:
       - "haproxy"
 
