@@ -1,4 +1,8 @@
 ---
+inv_prepare_host_system_users:
+  - login: "haproxy"
+    group: "haproxy"
+
 inv_haproxy_path: "/etc/haproxy"
 inv_haproxy_confs_path: "{{ inv_haproxy_path }}/conf.d"
 inv_haproxy_error_path: "{{ inv_haproxy_path }}/errors"

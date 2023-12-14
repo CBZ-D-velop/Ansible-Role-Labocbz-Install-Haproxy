@@ -23,9 +23,9 @@
         path: "{{ file }}"
         state: directory
         recurse: yes
-        group: "root"
-        owner: "root"
-        mode: "0600"
+        group: "{{ install_haproxy_group }}"
+        owner: "{{ install_haproxy_user }}"
+        mode: "0700"
 
     - name: "Remove old confs"
       when: haproxy_remove_old_confs | default(false)
@@ -50,9 +50,9 @@
         src: "{{ file.src }}"
         dest: "{{ file.dest }}"
         lstrip_blocks: yes
-        group: "root"
-        owner: "root"
-        mode: "0600"
+        group: "{{ install_haproxy_group }}"
+        owner: "{{ install_haproxy_user }}"
+        mode: "0700"
 
     - name: "Create fullchain file"
       when: haproxy_listen_stats_https | default(false)

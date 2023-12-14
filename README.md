@@ -116,6 +116,9 @@ haproxy_confs_path: "{{ haproxy_path }}/conf.d"
 haproxy_error_path: "{{ haproxy_path }}/errors"
 haproxy_ssl_path: "{{ haproxy_path }}/ssl"
 
+install_haproxy_group: "haproxy"
+install_haproxy_user: "haproxy"
+
 haproxy_error_files:
   - "400"
   - "403"
@@ -163,6 +166,9 @@ inv_haproxy_path: "/etc/haproxy"
 inv_haproxy_confs_path: "{{ inv_haproxy_path }}/conf.d"
 inv_haproxy_error_path: "{{ inv_haproxy_path }}/errors"
 inv_haproxy_ssl_path: "{{ inv_haproxy_path }}/ssl"
+
+inv_install_haproxy_group: "haproxy"
+inv_install_haproxy_user: "haproxy"
 
 inv_haproxy_error_files:
   - "400"
@@ -245,6 +251,10 @@ Here you can put your change to keep a trace of your work and decisions.
 * Molecule now use remote Docker image by Lord Robin Crombez
 * Molecule now use custom Docker image in CI/CD by env vars
 * New CICD with needs and optimization
+
+### 2023-12-14: System users
+
+* Role can now use system users and address groups
 
 ## Authors
 
