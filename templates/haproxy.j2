@@ -10,7 +10,7 @@
 # treat it as a shell script fragment.
 
 # Change the config file location if needed
-CONFIG="{{ haproxy_path }}/haproxy.cfg -f {{ haproxy_confs_path }}"
+CONFIG="{{ install_haproxy_path }}/haproxy.cfg -f {{ install_haproxy_confs_path }}"
 
 # Add extra flags here, see haproxy(1) for a few options
 #EXTRAOPTS="-de -m 16"
