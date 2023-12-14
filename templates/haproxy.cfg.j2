@@ -25,37 +25,37 @@ global
     ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
 
 defaults
-    log {{ haproxy_log }}
+    log {{ install_haproxy_log }}
     #
-    {% if haproxy_options | default(false) %}
-        {% for option in haproxy_options %}
+    {% if install_haproxy_options | default(false) %}
+        {% for option in install_haproxy_options %}
     option {{ option }}
         {% endfor %}
     {% endif %}
     #
-    timeout connect {{ haproxy_timeout_connect }}
-    timeout client {{ haproxy_timeout_client }}
-    timeout server {{ haproxy_timeout_server }}
+    timeout connect {{ install_haproxy_timeout_connect }}
+    timeout client {{ install_haproxy_timeout_client }}
+    timeout server {{ install_haproxy_timeout_server }}
     #
-    {% if haproxy_error_files | default(false) %}
-        {% for errorfile in haproxy_error_files %}
-    errorfile {{ errorfile }} {{ haproxy_error_path }}/{{ errorfile }}.http
+    {% if install_haproxy_error_files | default(false) %}
+        {% for errorfile in install_haproxy_error_files %}
+    errorfile {{ errorfile }} {{ install_haproxy_error_path }}/{{ errorfile }}.http
         {% endfor %}
     {% endif %}
 
-{% if haproxy_listen_stats | default(false) %}
+{% if install_haproxy_listen_stats | default(false) %}
 listen stats
-    mode {{ haproxy_listen_stats_mode }}
-    {% if haproxy_listen_stats_https | default(false) %}
-    bind "{{ haproxy_listen_stats_bind }}:{{ haproxy_listen_stats_port }}" ssl crt {{ haproxy_listen_stats_fullchain }}
+    mode {{ install_haproxy_listen_stats_mode }}
+    {% if install_haproxy_listen_stats_https | default(false) %}
+    bind "{{ install_haproxy_listen_stats_bind }}:{{ install_haproxy_listen_stats_port }}" ssl crt {{ install_haproxy_listen_stats_fullchain }}
     {% else %}
-    bind "{{ haproxy_listen_stats_bind }}:{{ haproxy_listen_stats_port }}"
+    bind "{{ install_haproxy_listen_stats_bind }}:{{ install_haproxy_listen_stats_port }}"
     {% endif %}
     stats enable
-    stats uri /{{ haproxy_listen_stats_uri }}
-    stats refresh {{ haproxy_listen_stats_refresh }}s
+    stats uri /{{ install_haproxy_listen_stats_uri }}
+    stats refresh {{ install_haproxy_listen_stats_refresh }}s
     stats realm Haproxy\ Statistics
-    {% if ((haproxy_stats_login | default(false)) and (haproxy_stats_password | default(false))) %}
-    stats auth "{{ haproxy_stats_login }}":"{{ haproxy_stats_password }}"
+    {% if ((install_haproxy_stats_login | default(false)) and (install_haproxy_stats_password | default(false))) %}
+    stats auth "{{ install_haproxy_stats_login }}":"{{ install_haproxy_stats_password }}"
     {% endif %}
 {% endif %}

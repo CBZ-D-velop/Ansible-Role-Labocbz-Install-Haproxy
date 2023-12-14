@@ -1,15 +1,15 @@
 ---
 - name: "Enable and start HAProxy"
-  register: haproxy_service_status
-  changed_when: haproxy_service_status.state != "started"
+  register: install_haproxy_service_status
+  changed_when: install_haproxy_service_status.state != "started"
   ansible.builtin.service:
     name: "haproxy"
     state: "started"
     enabled: yes
 
 - name: "Restart HAProxy"
-  register: haproxy_service_status
-  changed_when: haproxy_service_status.state != "restarted"
+  register: install_haproxy_service_status
+  changed_when: install_haproxy_service_status.state != "restarted"
   ansible.builtin.service:
     name: "haproxy"
     state: "restarted"

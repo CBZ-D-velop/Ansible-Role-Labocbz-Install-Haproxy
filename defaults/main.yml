@@ -1,13 +1,13 @@
 ---
-haproxy_path: "/etc/haproxy"
-haproxy_confs_path: "{{ haproxy_path }}/conf.d"
-haproxy_error_path: "{{ haproxy_path }}/errors"
-haproxy_ssl_path: "{{ haproxy_path }}/ssl"
+install_haproxy_path: "/etc/haproxy"
+install_haproxy_confs_path: "{{ install_haproxy_path }}/conf.d"
+install_haproxy_error_path: "{{ install_haproxy_path }}/errors"
+install_haproxy_ssl_path: "{{ install_haproxy_path }}/ssl"
 
-install_haproxy_group: "haproxy"
-install_haproxy_user: "haproxy"
+install_install_haproxy_group: "haproxy"
+install_install_haproxy_user: "haproxy"
 
-haproxy_error_files:
+install_haproxy_error_files:
   - "400"
   - "403"
   - "408"
@@ -16,25 +16,25 @@ haproxy_error_files:
   - "503"
   - "504"
 
-haproxy_log: "global"
-haproxy_options:
+install_haproxy_log: "global"
+install_haproxy_options:
   - "httplog"
   - "dontlognull"
 
-haproxy_timeout_connect: 5000
-haproxy_timeout_client:  50000
-haproxy_timeout_server:  50000
-haproxy_remove_old_confs: true
+install_haproxy_timeout_connect: 5000
+install_haproxy_timeout_client:  50000
+install_haproxy_timeout_server:  50000
+install_haproxy_remove_old_confs: true
 
-haproxy_listen_stats: true
-haproxy_listen_stats_https: true
-haproxy_listen_stats_cert: "{{ haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
-haproxy_listen_stats_key: "{{ haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
-haproxy_listen_stats_fullchain: "{{ haproxy_ssl_path }}/my-haproxy-server.domain.tld/fullchain.pem"
-haproxy_listen_stats_mode: "http"
-haproxy_listen_stats_bind: "*"
-haproxy_listen_stats_port: 8181
-haproxy_listen_stats_uri: "/haproxy/stats"
-haproxy_listen_stats_refresh: 10
-haproxy_stats_login: "joe"
-haproxy_stats_password: "passwd"
+install_haproxy_listen_stats: true
+install_haproxy_listen_stats_https: true
+install_haproxy_listen_stats_cert: "{{ install_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
+install_haproxy_listen_stats_key: "{{ install_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
+install_haproxy_listen_stats_fullchain: "{{ install_haproxy_ssl_path }}/my-haproxy-server.domain.tld/fullchain.pem"
+install_haproxy_listen_stats_mode: "http"
+install_haproxy_listen_stats_bind: "*"
+install_haproxy_listen_stats_port: 8181
+install_haproxy_listen_stats_uri: "/haproxy/stats"
+install_haproxy_listen_stats_refresh: 10
+install_haproxy_stats_login: "joe"
+install_haproxy_stats_password: "passwd"
