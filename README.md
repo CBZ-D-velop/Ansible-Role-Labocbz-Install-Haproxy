@@ -264,18 +264,3 @@ Here you can put your change to keep a trace of your work and decisions.
 
 * [Ansible role documentation](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html)
 * [Ansible Molecule documentation](https://molecule.readthedocs.io/)
-
-
-install_install_haproxy_group: "haproxy"
-install_install_haproxy_user: "haproxy"
-
-vars:
-  prepare_host_system_users: "{{ inv_prepare_host_system_users }}"
-
-inv_prepare_host_system_users:
-  - login: "www-data"
-    group: "www-data"
-
-### 2023-12-14: System users
-
-* Role can now use system users and address groups
