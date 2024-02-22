@@ -11,10 +11,10 @@
   block:
     - name: "Prepare folders"
       loop:
-        - "{{ install_haproxy_path }}"
-        - "{{ install_haproxy_confs_path }}"
-        - "{{ install_haproxy_error_path }}"
-        - "{{ install_haproxy_ssl_path }}"
+        - "{{ install_haproxy__path }}"
+        - "{{ install_haproxy__confs_path }}"
+        - "{{ install_haproxy__error_path }}"
+        - "{{ install_haproxy__ssl_path }}"
       loop_control:
         loop_var: file
       register: output
@@ -23,16 +23,16 @@
         path: "{{ file }}"
         state: directory
         recurse: yes
-        group: "{{ install_install_haproxy_group }}"
-        owner: "{{ install_install_haproxy_user }}"
+        group: "{{ install_install_haproxy__group }}"
+        owner: "{{ install_install_haproxy__user }}"
         mode: "0700"
 
     - name: "Remove old confs"
-      when: install_haproxy_remove_old_confs | default(false)
+      when: install_haproxy__remove_old_confs | default(false)
       loop:
-        - "{{ install_haproxy_confs_path }}"
-        - "{{ install_haproxy_error_path }}"
-        - "{{ install_haproxy_ssl_path }}"
+        - "{{ install_haproxy__confs_path }}"
+        - "{{ install_haproxy__error_path }}"
+        - "{{ install_haproxy__ssl_path }}"
       loop_control:
         loop_var: path
       ansible.builtin.include_tasks:
@@ -50,12 +50,12 @@
         src: "{{ file.src }}"
         dest: "{{ file.dest }}"
         lstrip_blocks: yes
-        group: "{{ install_install_haproxy_group }}"
-        owner: "{{ install_install_haproxy_user }}"
+        group: "{{ install_install_haproxy__group }}"
+        owner: "{{ install_install_haproxy__user }}"
         mode: "0700"
 
     - name: "Create fullchain file"
-      when: install_haproxy_listen_stats_https | default(false)
+      when: install_haproxy__listen_stats_https | default(false)
       register: output
       changed_when: output.rc != 0
-      ansible.builtin.shell: cat {{ install_haproxy_listen_stats_cert }} {{ install_haproxy_listen_stats_key }} > {{ install_haproxy_listen_stats_fullchain }}
+      ansible.builtin.shell: cat {{ install_haproxy__listen_stats_cert }} {{ install_haproxy__listen_stats_key }} > {{ install_haproxy__listen_stats_fullchain }}
