@@ -111,15 +111,15 @@ Some vars a required to run this role:
 
 ```YAML
 ---
-install_haproxy_path: "/etc/haproxy"
-install_haproxy_confs_path: "{{ install_haproxy_path }}/conf.d"
-install_haproxy_error_path: "{{ install_haproxy_path }}/errors"
-install_haproxy_ssl_path: "{{ install_haproxy_path }}/ssl"
+install_haproxy__path: "/etc/haproxy"
+install_haproxy__confs_path: "{{ install_haproxy__path }}/conf.d"
+install_haproxy__error_path: "{{ install_haproxy__path }}/errors"
+install_haproxy__ssl_path: "{{ install_haproxy__path }}/ssl"
 
-install_install_haproxy_group: "haproxy"
-install_install_haproxy_user: "haproxy"
+install_install_haproxy__group: "haproxy"
+install_install_haproxy__user: "haproxy"
 
-install_haproxy_error_files:
+install_haproxy__error_files:
   - "400"
   - "403"
   - "408"
@@ -128,28 +128,28 @@ install_haproxy_error_files:
   - "503"
   - "504"
 
-install_haproxy_log: "global"
-install_haproxy_options:
+install_haproxy__log: "global"
+install_haproxy__options:
   - "httplog"
   - "dontlognull"
 
-install_haproxy_timeout_connect: 5000
-install_haproxy_timeout_client:  50000
-install_haproxy_timeout_server:  50000
-install_haproxy_remove_old_confs: true
+install_haproxy__timeout_connect: 5000
+install_haproxy__timeout_client:  50000
+install_haproxy__timeout_server:  50000
+install_haproxy__remove_old_confs: true
 
-install_haproxy_listen_stats: true
-install_haproxy_listen_stats_https: true
-install_haproxy_listen_stats_cert: "{{ install_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
-install_haproxy_listen_stats_key: "{{ install_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
-install_haproxy_listen_stats_fullchain: "{{ install_haproxy_ssl_path }}/my-haproxy-server.domain.tld/fullchain.pem"
-install_haproxy_listen_stats_mode: "http"
-install_haproxy_listen_stats_bind: "*"
-install_haproxy_listen_stats_port: 8181
-install_haproxy_listen_stats_uri: "/haproxy/stats"
-install_haproxy_listen_stats_refresh: 10
-install_haproxy_stats_login: "joe"
-install_haproxy_stats_password: "passwd"
+install_haproxy__listen_stats: true
+install_haproxy__listen_stats_https: true
+install_haproxy__listen_stats_cert: "{{ install_haproxy__ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
+install_haproxy__listen_stats_key: "{{ install_haproxy__ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
+install_haproxy__listen_stats_fullchain: "{{ install_haproxy__ssl_path }}/my-haproxy-server.domain.tld/fullchain.pem"
+install_haproxy__listen_stats_mode: "http"
+install_haproxy__listen_stats_bind: "*"
+install_haproxy__listen_stats_port: 8181
+install_haproxy__listen_stats_uri: "/haproxy/stats"
+install_haproxy__listen_stats_refresh: 10
+install_haproxy__stats_login: "joe"
+install_haproxy__stats_password: "passwd"
 
 ```
 
@@ -162,15 +162,15 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-inv_install_haproxy_path: "/etc/haproxy"
-inv_install_haproxy_confs_path: "{{ inv_install_haproxy_path }}/conf.d"
-inv_install_haproxy_error_path: "{{ inv_install_haproxy_path }}/errors"
-inv_install_haproxy_ssl_path: "{{ inv_install_haproxy_path }}/ssl"
+inv_install_haproxy__path: "/etc/haproxy"
+inv_install_haproxy__confs_path: "{{ inv_install_haproxy__path }}/conf.d"
+inv_install_haproxy__error_path: "{{ inv_install_haproxy__path }}/errors"
+inv_install_haproxy__ssl_path: "{{ inv_install_haproxy__path }}/ssl"
 
-inv_install_install_haproxy_group: "haproxy"
-inv_install_install_haproxy_user: "haproxy"
+inv_install_install_haproxy__group: "haproxy"
+inv_install_install_haproxy__user: "haproxy"
 
-inv_install_haproxy_error_files:
+inv_install_haproxy__error_files:
   - "400"
   - "403"
   - "408"
@@ -179,14 +179,14 @@ inv_install_haproxy_error_files:
   - "503"
   - "504"
 
-inv_install_haproxy_listen_stats: true
-inv_install_haproxy_listen_stats_https: true
-inv_install_haproxy_listen_stats_cert: "{{ inv_install_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
-inv_install_haproxy_listen_stats_key: "{{ inv_install_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
-inv_install_haproxy_listen_stats_port: 8181
-inv_install_haproxy_listen_stats_uri: "haproxy/stats"
-inv_install_haproxy_stats_login: "joe"
-inv_install_haproxy_stats_password: "passwd"
+inv_install_haproxy__listen_stats: true
+inv_install_haproxy__listen_stats_https: true
+inv_install_haproxy__listen_stats_cert: "{{ inv_install_haproxy__ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
+inv_install_haproxy__listen_stats_key: "{{ inv_install_haproxy__ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
+inv_install_haproxy__listen_stats_port: 8181
+inv_install_haproxy__listen_stats_uri: "haproxy/stats"
+inv_install_haproxy__stats_login: "joe"
+inv_install_haproxy__stats_password: "passwd"
 
 ```
 
@@ -205,19 +205,19 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
   tags:
     - "labocbz.install_haproxy"
   vars:
-    install_haproxy_path: "{{ inv_install_haproxy_path }}"
-    install_haproxy_confs_path: "{{ inv_install_haproxy_confs_path }}"
-    install_haproxy_error_path: "{{ inv_install_haproxy_error_path }}"
-    install_haproxy_ssl_path: "{{ inv_install_haproxy_ssl_path }}"
-    install_haproxy_error_files: "{{ inv_install_haproxy_error_files }}"
-    install_haproxy_listen_stats: "{{ inv_install_haproxy_listen_stats }}"
-    install_haproxy_listen_stats_port: "{{ inv_install_haproxy_listen_stats_port }}"
-    install_haproxy_listen_stats_uri: "{{ inv_install_haproxy_listen_stats_uri }}"
-    install_haproxy_stats_login: "{{ inv_install_haproxy_stats_login }}"
-    install_haproxy_stats_password: "{{ inv_install_haproxy_stats_password }}"
-    install_haproxy_listen_stats_https: "{{ inv_install_haproxy_listen_stats_https }}"
-    install_haproxy_listen_stats_cert: "{{ inv_install_haproxy_listen_stats_cert }}"
-    install_haproxy_listen_stats_key: "{{ inv_install_haproxy_listen_stats_key }}"
+    install_haproxy__path: "{{ inv_install_haproxy__path }}"
+    install_haproxy__confs_path: "{{ inv_install_haproxy__confs_path }}"
+    install_haproxy__error_path: "{{ inv_install_haproxy__error_path }}"
+    install_haproxy__ssl_path: "{{ inv_install_haproxy__ssl_path }}"
+    install_haproxy__error_files: "{{ inv_install_haproxy__error_files }}"
+    install_haproxy__listen_stats: "{{ inv_install_haproxy__listen_stats }}"
+    install_haproxy__listen_stats_port: "{{ inv_install_haproxy__listen_stats_port }}"
+    install_haproxy__listen_stats_uri: "{{ inv_install_haproxy__listen_stats_uri }}"
+    install_haproxy__stats_login: "{{ inv_install_haproxy__stats_login }}"
+    install_haproxy__stats_password: "{{ inv_install_haproxy__stats_password }}"
+    install_haproxy__listen_stats_https: "{{ inv_install_haproxy__listen_stats_https }}"
+    install_haproxy__listen_stats_cert: "{{ inv_install_haproxy__listen_stats_cert }}"
+    install_haproxy__listen_stats_key: "{{ inv_install_haproxy__listen_stats_key }}"
   ansible.builtin.include_role:
     name: "labocbz.install_haproxy"
 ```
@@ -255,6 +255,14 @@ Here you can put your change to keep a trace of your work and decisions.
 ### 2023-12-14: System users
 
 * Role can now use system users and address groups
+
+### 2024-02-22: New support
+
+* New CI
+* Added Sonarqube
+* Added support for Debian 12/11
+* Added support for Ubuntu 22
+* Added random for cluster services
 
 ## Authors
 
