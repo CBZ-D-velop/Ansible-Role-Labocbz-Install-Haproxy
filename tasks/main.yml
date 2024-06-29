@@ -1,6 +1,10 @@
 ---
 - name: "Install packages"
   notify: "Enable and start HAProxy"
+  retries: 3
+  delay: 10
+  until: output is success
+  register: output
   ansible.builtin.package:
     update_cache: true
     name:
